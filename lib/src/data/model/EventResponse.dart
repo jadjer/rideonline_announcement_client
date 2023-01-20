@@ -12,16 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import '../domain/Event.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class EventResponse {
+  final bool success;
+  final String message;
+  final Event? event;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  EventResponse({
+    required this.success,
+    required this.message,
+    this.event,
+  });
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  factory EventResponse.fromJson(Map<String, dynamic> json) {
+    final success = json['success'] as bool;
+    final message = json['message'] as String;
 
-  runApp(app);
+    if (!success) return EventResponse(success: success, message: message);
+
+    return EventResponse(
+      success: success,
+      message: message,
+      event: Event.fromJson(json['payload']),
+    );
+  }
 }

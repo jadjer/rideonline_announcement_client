@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class AuthTokenInterceptor extends InterceptorContract {
+  @override
+  Future<BaseRequest> interceptRequest({required BaseRequest request}) async {
+    final Map<String, String> headers = Map.from(request.headers);
+    headers['Authorization'] = 'Bearer ';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+    return request.copyWith(headers: headers);
+  }
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  @override
+  Future<BaseResponse> interceptResponse({required BaseResponse response}) async {
+    return response;
+  }
 }

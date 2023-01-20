@@ -14,14 +14,22 @@
 
 import 'package:flutter/material.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+import '../data/domain/Event.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class EventDetails extends StatelessWidget {
+  final Event event;
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  const EventDetails({
+    super.key,
+    required this.event,
+  });
 
-  runApp(app);
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        Text(event.text),
+      ],
+    );
+  }
 }

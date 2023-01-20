@@ -12,16 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'package:http_interceptor/http_interceptor.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class ExpiredTokenRetryPolicy extends RetryPolicy {
+  @override
+  int get maxRetryAttempts => 3;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  @override
+  Future<bool> shouldAttemptRetryOnException(Exception reason, BaseRequest request) async {
+    return false;
+  }
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  @override
+  Future<bool> shouldAttemptRetryOnResponse(BaseResponse response) async {
+    if (response.statusCode == 401) {
+      // Perform your token refresh here.
 
-  runApp(app);
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -14,14 +14,29 @@
 
 import 'package:flutter/material.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+import '../data/domain/Event.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class EventList extends StatelessWidget {
+  final List<Event> events;
+  final ValueChanged<Event> onTap;
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  const EventList({
+    super.key,
+    required this.events,
+    required this.onTap,
+  });
 
-  runApp(app);
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: events.length,
+      itemBuilder: (context, index) => ListTile(
+        title: Text(events[index].title),
+        subtitle: Text(events[index].subtitle),
+        onTap: () {
+          return onTap(events[index]);
+        },
+      ),
+    );
+  }
 }

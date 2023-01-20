@@ -12,16 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import '../domain/Token.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class TokenResponse {
+  final bool success;
+  final String message;
+  final Token? token;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  TokenResponse({
+    required this.success,
+    required this.message,
+    this.token,
+  });
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  factory TokenResponse.fromJson(Map<String, dynamic> json) {
+    final success = json['success'] as bool;
+    final message = json['message'] as String;
 
-  runApp(app);
+    if (!success) return TokenResponse(success: success, message: message);
+
+    return TokenResponse(
+      success: success,
+      message: message,
+      token: Token.fromJson(json['payload']),
+    );
+  }
 }

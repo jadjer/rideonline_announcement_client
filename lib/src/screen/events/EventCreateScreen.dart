@@ -14,14 +14,11 @@
 
 import 'package:flutter/material.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class EventCreateScreen extends StatelessWidget {
+  const EventCreateScreen({super.key});
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold();
+  }
 }

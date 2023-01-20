@@ -12,16 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+class ChangePasswordRequest {
+  final String phone;
+  final String password;
+  final int verificationCode;
+  final String phoneToken;
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+  ChangePasswordRequest({required this.phone, required this.password, required this.verificationCode, required this.phoneToken});
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'phone': phone,
+      'password': password,
+      'verification_code': verificationCode,
+      'phone_token': phoneToken,
+    };
+  }
 }

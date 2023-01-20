@@ -13,15 +13,22 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class FadeTransitionPage extends CustomTransitionPage<void> {
+  FadeTransitionPage({
+    required LocalKey key,
+    required Widget child,
+  }) : super(
+          key: key,
+          transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+            return FadeTransition(
+              opacity: animation.drive(_curveTween),
+              child: child,
+            );
+          },
+          child: child,
+        );
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  static final CurveTween _curveTween = CurveTween(curve: Curves.easeIn);
 }

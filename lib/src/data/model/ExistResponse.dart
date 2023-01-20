@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+class ExistResponse {
+  final bool success;
+  final String message;
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+  ExistResponse({
+    required this.success,
+    required this.message,
+  });
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  factory ExistResponse.fromJson(Map<String, dynamic> json) {
+    final success = json['success'] as bool;
+    final message = json['message'] as String;
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+    return ExistResponse(success: success, message: message);
+  }
 }

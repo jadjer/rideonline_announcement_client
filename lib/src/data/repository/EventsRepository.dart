@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import '../domain/Event.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+abstract class EventsRepository {
+  // Future<EventResponse> createEvent(Event request);
+  // Future<EventsResponse> getEvents();
+  // Future<EventResponse> getEvent(int eventId);
+  Stream<Event> getEventStream();
+  // Future<EventResponse> updateEvent(int eventId, Event request);
+  // Future<EventResponse> deleteEvent(int eventId);
 }

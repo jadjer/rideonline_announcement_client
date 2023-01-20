@@ -12,16 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import '../domain/Auth.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+class AuthResponse {
+  final bool success;
+  final String message;
+  final Auth? auth;
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  AuthResponse({
+    required this.success,
+    required this.message,
+    this.auth,
+  });
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
+  factory AuthResponse.fromJson(Map<String, dynamic> json) {
+    final success = json['success'] as bool;
+    final message = json['message'] as String;
 
-  runApp(app);
+    if (!success) return AuthResponse(success: success, message: message);
+
+    return AuthResponse(
+      success: success,
+      message: message,
+      auth: Auth.fromJson(json['payload']),
+    );
+  }
 }

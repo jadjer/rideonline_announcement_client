@@ -14,14 +14,21 @@
 
 import 'package:flutter/material.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+import '../../widget/EmptyState.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class NoConnectionScreen extends StatelessWidget {
+  const NoConnectionScreen({Key? key}) : super(key: key);
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: EmptyState(
+        path: 'assets/images/no_connection.png',
+        onClick: () {},
+        title: 'No internet Connection',
+        textButton: 'Try Again',
+        description: 'Your internet connection is currently not available please check or try again.',
+      ),
+    );
+  }
 }

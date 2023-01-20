@@ -12,16 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+import 'repository/AuthRepository.dart';
+import 'repository/EventsRepository.dart';
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+abstract class AppContainer {
+  AuthRepository get authRepository;
+  EventsRepository get eventsRepository;
 }

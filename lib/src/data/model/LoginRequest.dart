@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+class LoginRequest {
+  final String username;
+  final String password;
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+  LoginRequest({required this.username, required this.password});
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'username': username,
+      'password': password,
+    };
+  }
 }

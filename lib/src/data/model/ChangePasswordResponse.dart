@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:flutter/material.dart';
+class ChangePasswordResponse {
+  final bool success;
+  final String message;
 
-import 'src/App.dart';
-import 'src/data/AppContainerImpl.dart';
+  ChangePasswordResponse({
+    required this.success,
+    required this.message,
+  });
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  factory ChangePasswordResponse.fromJson(Map<String, dynamic> json) {
+    final success = json['success'] as bool;
+    final message = json['message'] as String;
 
-  final appContainer = AppContainerImpl();
-  final app = App(appContainer);
-
-  runApp(app);
+    return ChangePasswordResponse(success: success, message: message);
+  }
 }
