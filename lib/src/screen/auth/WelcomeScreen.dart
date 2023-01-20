@@ -36,7 +36,9 @@ class WelcomeScreen extends StatelessWidget {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Login",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () {
@@ -55,7 +57,9 @@ class WelcomeScreen extends StatelessWidget {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Register",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () {

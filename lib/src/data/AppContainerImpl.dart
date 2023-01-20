@@ -16,9 +16,9 @@ import 'package:http_interceptor/http_interceptor.dart';
 
 import 'AppContainer.dart';
 import 'repository/AuthRepository.dart';
-import 'repository/EventsRepository.dart';
+import 'repository/AnnouncementRepository.dart';
 import 'repository/impl/AuthRepositoryImpl.dart';
-import 'repository/impl/EventsRepositoryImpl.dart';
+import 'repository/impl/AnnouncementRepositoryImpl.dart';
 import '../utils/ExpiredTokenRetryPolicy.dart';
 import '../utils/interceptor/AcceptInterceptor.dart';
 import '../utils/interceptor/ApiKeyInterceptor.dart';
@@ -41,8 +41,12 @@ class AppContainerImpl implements AppContainer {
   }
 
   @override
-  AuthRepository get authRepository => AuthRepositoryImpl(_client);
+  AuthRepository get authRepository {
+    return AuthRepositoryImpl(_client);
+  }
 
   @override
-  EventsRepository get eventsRepository => EventsRepositoryImpl();
+  AnnouncementRepository get announcementRepository {
+    return AnnouncementRepositoryImpl(_client);
+  }
 }

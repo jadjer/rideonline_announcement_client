@@ -15,22 +15,35 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:announcement/src/data/model/EventsResponse.dart';
 import 'package:flutter/material.dart';
 
 import '../data/domain/Event.dart';
-import '../data/repository/EventsRepository.dart';
+import '../data/repository/AnnouncementRepository.dart';
 
-class EventsService extends ChangeNotifier {
-  late List<Event> _events;
-  late EventsRepository _repository;
+class AnnouncementService extends ChangeNotifier {
+  List<Event> _events = [];
 
-  EventsService(EventsRepository repository) {
-    _events = [];
+  final _eventsController = StreamController<Event>();
+
+  late AnnouncementRepository _repository;
+
+  AnnouncementService(AnnouncementRepository repository) {
     _repository = repository;
   }
 
   Stream<Event> getEventsStream() {
-    return _repository.getEventStream();
+    return _eventsController.stream;
+  }
+
+  Future<List<Event>> getEvents() async {
+    final eventsResponse = await _repository.getEvents();
+
+    if (eventsResponse.success) {
+      _events = eventsResponse.events;
+    }
+
+    return _events;
   }
 
   // Future<Event?> getEventById(int eventId) async {

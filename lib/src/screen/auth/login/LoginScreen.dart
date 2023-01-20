@@ -52,16 +52,23 @@ class _LoginScreenState extends State<LoginScreen> {
             color: const Color.fromRGBO(143, 148, 251, 1),
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(255, 255, 255, .2), blurRadius: 20.0, offset: Offset(0, 10)),
+              BoxShadow(
+                  color: Color.fromRGBO(255, 255, 255, .2),
+                  blurRadius: 20.0,
+                  offset: Offset(0, 10)),
             ],
           ),
           child: Column(
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey))),
                 child: TextField(
-                  decoration: InputDecoration(border: InputBorder.none, hintText: 'Username', hintStyle: TextStyle(color: Colors.grey[400])),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Username',
+                      hintStyle: TextStyle(color: Colors.grey[400])),
                   autofocus: true,
                   controller: _usernameTextController,
                 ),
@@ -69,7 +76,10 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
-                  decoration: InputDecoration(border: InputBorder.none, hintText: 'Password', hintStyle: TextStyle(color: Colors.grey[400])),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.grey[400])),
                   keyboardType: TextInputType.visiblePassword,
                   controller: _passwordTextController,
                 ),
@@ -88,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Login",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () async {
@@ -100,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         const SizedBox(height: 70),
         InkWell(
-          child: const Text('Change password', style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
+          child: const Text('Change password',
+              style: TextStyle(color: Color.fromRGBO(143, 148, 251, 1))),
           onTap: () {
             context.goNamed(AppRouteName.changePasswordPhone);
           },

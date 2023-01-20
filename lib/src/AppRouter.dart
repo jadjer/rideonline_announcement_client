@@ -27,7 +27,7 @@ import 'screen/auth/login/LoginScreen.dart';
 import 'screen/auth/register/RegisterScreen.dart';
 import 'screen/error/ErrorPage.dart';
 import 'screen/events/EventCreateScreen.dart';
-import 'screen/events/EventDetailsScreen.dart';
+import 'screen/events/EventDetailScreen.dart';
 import 'screen/events/EventsScreen.dart';
 import 'screen/setting/SettingsScreen.dart';
 import 'screen/splash/SplashScreen.dart';
@@ -160,7 +160,7 @@ class AppRouter {
 
     return FadeTransitionPage(
       key: state.pageKey,
-      child: EventDetailsScreen(eventId: eventId),
+      child: EventDetailScreen(eventId: eventId),
     );
   }
 

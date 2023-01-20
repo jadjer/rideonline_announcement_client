@@ -57,7 +57,10 @@ class _ChangePasswordPhoneScreenState extends State<ChangePasswordPhoneScreen> {
             color: const Color.fromRGBO(143, 148, 251, 1),
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(255, 255, 255, .2), blurRadius: 20.0, offset: Offset(0, 10)),
+              BoxShadow(
+                  color: Color.fromRGBO(255, 255, 255, .2),
+                  blurRadius: 20.0,
+                  offset: Offset(0, 10)),
             ],
           ),
           child: Container(
@@ -89,7 +92,9 @@ class _ChangePasswordPhoneScreenState extends State<ChangePasswordPhoneScreen> {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Reset", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Reset",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () async {

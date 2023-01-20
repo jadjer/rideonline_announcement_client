@@ -61,7 +61,8 @@ class AppThemeLight {
 
   Color shift(Color c, double amt) {
     var hslc = HSLColor.fromColor(c); // Convert to HSL
-    double lightness = (hslc.lightness + amt).clamp(0, 1.0) as double; // Add/Remove lightness
+    double lightness =
+        (hslc.lightness + amt).clamp(0, 1.0) as double; // Add/Remove lightness
     return hslc.withLightness(lightness).toColor(); // Convert back to Color
   }
 }

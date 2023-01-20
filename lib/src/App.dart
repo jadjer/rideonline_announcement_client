@@ -19,7 +19,7 @@ import 'AppRouter.dart';
 import 'data/AppContainer.dart';
 import 'service/ChangePasswordService.dart';
 import 'service/AuthService.dart';
-import 'service/EventsService.dart';
+import 'service/AnnouncementService.dart';
 import 'service/RegisterService.dart';
 import 'theme/AppThemeDark.dart';
 import 'theme/AppThemeLight.dart';
@@ -28,16 +28,16 @@ class App extends StatelessWidget {
   late final AppRouter _appRouter;
   late final AuthService _authService;
   late final AppContainer _appContainer;
-  late final EventsService _eventsService;
   late final RegisterService _registerService;
+  late final AnnouncementService _announcementService;
   late final ChangePasswordService _changePasswordService;
 
   App(AppContainer appContainer, {super.key}) {
     _appContainer = appContainer;
 
     _authService = AuthService(_appContainer.authRepository);
-    _eventsService = EventsService(_appContainer.eventsRepository);
     _registerService = RegisterService(_appContainer.authRepository);
+    _announcementService = AnnouncementService(_appContainer.announcementRepository);
     _changePasswordService = ChangePasswordService(_appContainer.authRepository);
 
     _appRouter = AppRouter(auth: _authService);
@@ -52,7 +52,7 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<AuthService>.value(value: _authService),
         ChangeNotifierProvider<RegisterService>.value(value: _registerService),
         ChangeNotifierProvider<ChangePasswordService>.value(value: _changePasswordService),
-        ChangeNotifierProvider<EventsService>.value(value: _eventsService),
+        ChangeNotifierProvider<AnnouncementService>.value(value: _announcementService),
         Provider<AppRouter>.value(value: _appRouter),
       ],
       child: Builder(

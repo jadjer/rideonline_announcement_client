@@ -24,7 +24,8 @@ class AcceptInterceptor extends InterceptorContract {
   }
 
   @override
-  Future<BaseResponse> interceptResponse({required BaseResponse response}) async {
+  Future<BaseResponse> interceptResponse(
+      {required BaseResponse response}) async {
     return response;
   }
 }

@@ -14,22 +14,33 @@
 
 import 'package:flutter/material.dart';
 
-import '../data/domain/Event.dart';
+class CustomText extends StatelessWidget {
+  final String text;
+  final Color? textColor;
+  final double? fontSize;
+  final FontStyle? fontStyle;
+  final FontWeight? fontWeight;
 
-class EventDetails extends StatelessWidget {
-  final Event event;
-
-  const EventDetails({
-    super.key,
-    required this.event,
-  });
+  const CustomText(
+      {super.key,
+      required this.text,
+      this.textColor,
+      this.fontSize,
+      this.fontStyle,
+      this.fontWeight});
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Text(event.text),
-      ],
+    return FittedBox(
+      child: Text(
+        text,
+        style: TextStyle(
+          color: textColor ?? Colors.black,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          fontStyle: fontStyle,
+        ),
+      ),
     );
   }
 }

@@ -21,7 +21,10 @@ class FadeTransitionPage extends CustomTransitionPage<void> {
     required Widget child,
   }) : super(
           key: key,
-          transitionsBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation, Widget child) {
+          transitionsBuilder: (BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child) {
             return FadeTransition(
               opacity: animation.drive(_curveTween),
               child: child,

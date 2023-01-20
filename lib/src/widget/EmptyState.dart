@@ -23,7 +23,13 @@ class EmptyState extends StatelessWidget {
   final String textButton;
   final VoidCallback? onClick;
 
-  const EmptyState({Key? key, this.path = '', this.title = 'Upss', this.description = 'Something went wrong', this.onClick, this.textButton = 'Click'})
+  const EmptyState(
+      {Key? key,
+      this.path = '',
+      this.title = 'Upss',
+      this.description = 'Something went wrong',
+      this.onClick,
+      this.textButton = 'Click'})
       : super(key: key);
 
   @override

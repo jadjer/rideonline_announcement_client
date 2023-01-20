@@ -12,14 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../AppRouteName.dart';
 import '../../data/domain/Event.dart';
-import '../../service/EventsService.dart';
+import '../../service/AnnouncementService.dart';
 
 class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
@@ -31,58 +30,54 @@ class EventsScreen extends StatefulWidget {
 class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
-    final events = context.read<EventsService>();
-    final eventsStream = events.getEventsStream();
+    final events = context.read<AnnouncementService>();
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Events'),
         ),
-        body: StreamBuilder<Event>(
-          stream: eventsStream,
+        body: FutureBuilder<List<Event>>(
+          future: events.getEvents(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.error.toString());
-            }
+              final eventsData = snapshot.data!;
 
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return const Text('None');
-              case ConnectionState.waiting:
-                return const Center(child: CircularProgressIndicator());
-              case ConnectionState.active:
-                return const Text('Active');
-              case ConnectionState.done:
-                return const Text('Done');
+              List<Card> eventsCards = [];
+
+              for (final event in eventsData) {
+                eventsCards.add(Card(
+                  child: Text(event.title),
+                ));
+              }
+
+              return ListView(
+                children: eventsCards,
+              );
+            } else if (snapshot.hasError) {
+              return Center(child: Text(snapshot.error.toString()));
+            } else {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                  return const Center(child: Text('None'));
+                case ConnectionState.waiting:
+                  return const Center(child: CircularProgressIndicator());
+                case ConnectionState.active:
+                  return const Center(child: Text('Active'));
+                case ConnectionState.done:
+                  return const Center(child: Text('Done'));
+              }
             }
           },
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            context.goNamed(AppRouteName.eventCreate);
+          },
+          child: const Icon(Icons.add),
+        ),
       ),
     );
-
-    // return SafeArea(
-    //   child: Scaffold(
-    //     appBar: AppBar(
-    //       title: const Text('Events'),
-    //     ),
-    //     body: FutureBuilder<List<Event>>(
-    //       future: futureEvents,
-    //       initialData: const [],
-    //       builder: (BuildContext context, AsyncSnapshot<List<Event>> snapshot) {
-    //         if (snapshot.hasError) return Text(snapshot.error.toString());
-    //         if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
-    //
-    //         return RefreshIndicator(
-    //           onRefresh: () {
-    //             return Future(() => setState(() {}));
-    //           },
-    //           child: EventList(events: snapshot.data!, onTap: _handleEventTapped),
-    //         );
-    //       },
-    //     ),
-    //   ),
-    // );
   }
 
   void _handleEventTapped(Event event) {

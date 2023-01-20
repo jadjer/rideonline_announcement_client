@@ -53,16 +53,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
             color: const Color.fromRGBO(143, 148, 251, 1),
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(255, 255, 255, .2), blurRadius: 20.0, offset: Offset(0, 10)),
+              BoxShadow(
+                  color: Color.fromRGBO(255, 255, 255, .2),
+                  blurRadius: 20.0,
+                  offset: Offset(0, 10)),
             ],
           ),
           child: Column(
             children: <Widget>[
               Container(
                 padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey))),
                 child: TextField(
-                  decoration: InputDecoration(border: InputBorder.none, hintText: 'Username', hintStyle: TextStyle(color: Colors.grey[400])),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Username',
+                      hintStyle: TextStyle(color: Colors.grey[400])),
                   autofocus: true,
                   keyboardType: TextInputType.name,
                   controller: _usernameTextController,
@@ -70,9 +77,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               Container(
                 padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey))),
+                decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.grey))),
                 child: TextField(
-                  decoration: InputDecoration(border: InputBorder.none, hintText: 'Password', hintStyle: TextStyle(color: Colors.grey[400])),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.grey[400])),
                   keyboardType: TextInputType.visiblePassword,
                   controller: _passwordTextController,
                 ),
@@ -81,7 +92,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   maxLength: 6,
-                  decoration: InputDecoration(border: InputBorder.none, hintText: 'Verify code', hintStyle: TextStyle(color: Colors.grey[400])),
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Verify code',
+                      hintStyle: TextStyle(color: Colors.grey[400])),
                   keyboardType: TextInputType.number,
                   controller: _verificationCodeTextController,
                 ),
@@ -89,7 +103,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Visibility(
                 visible: (register.errorMessage != null),
                 child: Center(
-                  child: Text(register.errorMessage ?? '', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                  child: Text(register.errorMessage ?? '',
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
                 ),
               ),
             ],
@@ -106,13 +122,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Register",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () async {
             final username = _usernameTextController.text;
             final password = _passwordTextController.text;
-            final verificationCode = int.parse(_verificationCodeTextController.text);
+            final verificationCode =
+                int.parse(_verificationCodeTextController.text);
 
             await register.signUp(username, password, verificationCode);
           },

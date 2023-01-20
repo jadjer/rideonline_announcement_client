@@ -27,7 +27,8 @@ class SplashScreen extends StatefulWidget {
   }
 }
 
-class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
+class _SplashScreenState extends State<SplashScreen>
+    with TickerProviderStateMixin {
   late final AnimationController _controller;
 
   @override
@@ -40,10 +41,12 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return SafeArea(
       child: Center(
-        child: Lottie.asset('assets/animation/AndroidWave.json', controller: _controller, onLoaded: (LottieComposition composition) {
+        child: Lottie.asset('assets/animation/AndroidWave.json',
+            controller: _controller, onLoaded: (LottieComposition composition) {
           _controller
             ..addStatusListener((AnimationStatus status) {
-              if (status == AnimationStatus.completed) context.goNamed(AppRouteName.root);
+              if (status == AnimationStatus.completed)
+                context.goNamed(AppRouteName.root);
             })
             ..duration = composition.duration
             ..forward();

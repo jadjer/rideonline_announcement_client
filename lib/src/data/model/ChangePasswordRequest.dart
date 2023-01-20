@@ -18,7 +18,11 @@ class ChangePasswordRequest {
   final int verificationCode;
   final String phoneToken;
 
-  ChangePasswordRequest({required this.phone, required this.password, required this.verificationCode, required this.phoneToken});
+  ChangePasswordRequest(
+      {required this.phone,
+      required this.password,
+      required this.verificationCode,
+      required this.phoneToken});
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

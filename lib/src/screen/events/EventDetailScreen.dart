@@ -15,16 +15,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../service/EventsService.dart';
+import '../../service/AnnouncementService.dart';
 
-class EventDetailsScreen extends StatelessWidget {
+class EventDetailScreen extends StatelessWidget {
   final int eventId;
 
-  const EventDetailsScreen({super.key, required this.eventId});
+  const EventDetailScreen({super.key, required this.eventId});
 
   @override
   Widget build(BuildContext context) {
-    final events = context.read<EventsService>();
+    final events = context.read<AnnouncementService>();
     // final futureEvent = events.getEventById(eventId);
 
     return SafeArea(

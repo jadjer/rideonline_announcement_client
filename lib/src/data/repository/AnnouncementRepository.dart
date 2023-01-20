@@ -13,12 +13,12 @@
 // limitations under the License.
 
 import '../domain/Event.dart';
+import '../model/EventsResponse.dart';
 
-abstract class EventsRepository {
+abstract class AnnouncementRepository {
   // Future<EventResponse> createEvent(Event request);
-  // Future<EventsResponse> getEvents();
+  Future<EventsResponse> getEvents();
   // Future<EventResponse> getEvent(int eventId);
-  Stream<Event> getEventStream();
   // Future<EventResponse> updateEvent(int eventId, Event request);
   // Future<EventResponse> deleteEvent(int eventId);
 }

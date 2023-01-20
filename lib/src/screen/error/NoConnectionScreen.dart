@@ -27,7 +27,8 @@ class NoConnectionScreen extends StatelessWidget {
         onClick: () {},
         title: 'No internet Connection',
         textButton: 'Try Again',
-        description: 'Your internet connection is currently not available please check or try again.',
+        description:
+            'Your internet connection is currently not available please check or try again.',
       ),
     );
   }

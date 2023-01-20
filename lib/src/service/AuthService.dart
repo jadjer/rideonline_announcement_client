@@ -67,8 +67,10 @@ class AuthService extends ChangeNotifier {
     if (result.success) {
       log('Login success');
 
-      await _storage.write(key: 'token_access', value: result.auth!.token.tokenAccess);
-      await _storage.write(key: 'token_refresh', value: result.auth!.token.tokenRefresh);
+      await _storage.write(
+          key: 'token_access', value: result.auth!.token.tokenAccess);
+      await _storage.write(
+          key: 'token_refresh', value: result.auth!.token.tokenRefresh);
 
       _isAuthenticated = true;
     } else {

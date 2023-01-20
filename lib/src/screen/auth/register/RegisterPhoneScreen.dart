@@ -57,7 +57,10 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
             color: const Color.fromRGBO(143, 148, 251, 1),
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(255, 255, 255, .2), blurRadius: 20.0, offset: Offset(0, 10)),
+              BoxShadow(
+                  color: Color.fromRGBO(255, 255, 255, .2),
+                  blurRadius: 20.0,
+                  offset: Offset(0, 10)),
             ],
           ),
           child: Column(
@@ -66,7 +69,10 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextField(
                   decoration: InputDecoration(
-                      border: InputBorder.none, hintText: '+375123456789', hintStyle: TextStyle(color: Colors.grey[400]), errorText: register.errorMessage),
+                      border: InputBorder.none,
+                      hintText: '+375123456789',
+                      hintStyle: TextStyle(color: Colors.grey[400]),
+                      errorText: register.errorMessage),
                   autofocus: true,
                   keyboardType: TextInputType.phone,
                   controller: _phoneTextController,
@@ -89,7 +95,9 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
                   Color.fromRGBO(143, 148, 251, .6),
                 ])),
             child: const Center(
-              child: Text("Verify", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              child: Text("Verify",
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold)),
             ),
           ),
           onTap: () async {
