@@ -35,13 +35,9 @@ class PointOnMap extends StatelessWidget {
         maxZoom: 18.0,
         minZoom: 12.0,
       ),
-      children: [
-        TileLayer(
-          urlTemplate: 'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=4Qeq0aHMQpH9LdJhF1N9',
-          userAgentPackageName: 'by.jadjer.rideonline.announcement',
-        ),
+      nonRotatedChildren: <Widget>[
         MarkerLayer(
-          markers: [
+          markers: <Marker>[
             Marker(
               point: LatLng(latitude, longitude),
               width: 80,
@@ -54,6 +50,12 @@ class PointOnMap extends StatelessWidget {
               },
             ),
           ],
+        ),
+      ],
+      children: <Widget>[
+        TileLayer(
+          urlTemplate: 'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=4Qeq0aHMQpH9LdJhF1N9',
+          userAgentPackageName: 'by.jadjer.rideonline.announcement',
         ),
       ],
     );

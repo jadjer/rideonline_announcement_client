@@ -31,7 +31,7 @@ import 'screen/error/ErrorPage.dart';
 import 'screen/events/EventCreateScreen.dart';
 import 'screen/events/EventDetailsScreen.dart';
 import 'screen/events/EventsScreen.dart';
-import 'screen/setting/SettingsScreen.dart';
+import 'screen/settings/SettingsScreen.dart';
 import 'screen/splash/SplashScreen.dart';
 import 'screen/user/UserDetailsScreen.dart';
 import 'screen/vehicles/VehicleCreateScreen.dart';
