@@ -15,6 +15,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:collection/collection.dart';
 import 'package:announcement/src/data/model/EventsResponse.dart';
 import 'package:flutter/material.dart';
 
@@ -46,28 +47,27 @@ class AnnouncementService extends ChangeNotifier {
     return _events;
   }
 
-  // Future<Event?> getEventById(int eventId) async {
-  //   Event? event;
-  //
-  //   try {
-  //     log('Try get event with $eventId from local');
-  //
-  //     event = _events.firstWhere((event) => (event.id == eventId));
-  //   } catch (e) {
-  //     log(e.toString());
-  //
-  //     log('Try get event with $eventId from remove');
-  //
-  //     final result = await _repository.getEvent(eventId);
-  //     if (!result.success) {
-  //       return null;
-  //     }
-  //
-  //     event = result.event;
-  //
-  //     log('Get data success');
-  //   }
-  //
-  //   return event;
-  // }
+  Future<Event?> getEventById(int eventId) async {
+    Event? event;
+
+    log('Try get event with $eventId from local');
+    event = _events.firstWhereOrNull((event) => (event.id == eventId));
+
+    if (event == null) {
+      log('Try get event with $eventId from remove');
+
+      final result = await _repository.getEvent(eventId);
+      if (result.success) {
+        event = result.event!;
+
+        _events.add(event);
+
+        log('Get data success');
+      }
+
+      log('Get data fail');
+    }
+
+    return event;
+  }
 }

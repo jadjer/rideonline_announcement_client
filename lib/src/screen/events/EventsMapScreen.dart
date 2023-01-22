@@ -29,31 +29,46 @@ class EventsMapScreenState extends State<EventsMapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SlidingUpPanel(
-      backdropEnabled: true,
-      defaultPanelState: PanelState.OPEN,
-      panel: const Center(
-        child: Text('qweaf rgrhytut rdft g ',
-            style: TextStyle(color: Colors.black)),
-      ),
-      collapsed: const Center(
-        child: Text('Trip data',
-            style: TextStyle(color: Colors.black, fontSize: 20)),
-      ),
-      body: FlutterMap(
-        options: MapOptions(
-          center: LatLng(55.171356, 30.261677),
-          zoom: 18.0,
-          maxZoom: 18.0,
-          minZoom: 12.0,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Events on map'),
         ),
-        children: [
-          TileLayer(
-            urlTemplate:
-                'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=4Qeq0aHMQpH9LdJhF1N9',
-            userAgentPackageName: 'by.jadjer.rideonline.announcement',
+        body: SlidingUpPanel(
+          backdropEnabled: true,
+          defaultPanelState: PanelState.OPEN,
+          panel: const Center(
+            child: Text(
+              'qweaf rgrhytut rdft g ',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
           ),
-        ],
+          collapsed: const Center(
+            child: Text(
+              'Trip data',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+          body: FlutterMap(
+            options: MapOptions(
+              center: LatLng(55.171356, 30.261677),
+              zoom: 18.0,
+              maxZoom: 18.0,
+              minZoom: 12.0,
+            ),
+            children: <Widget>[
+              TileLayer(
+                urlTemplate: 'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=4Qeq0aHMQpH9LdJhF1N9',
+                userAgentPackageName: 'by.jadjer.rideonline.announcement',
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

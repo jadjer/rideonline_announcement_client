@@ -14,12 +14,14 @@
 
 import 'dart:async';
 
+import 'package:announcement/src/screen/vehicles/VehiclesScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'AppRouteName.dart';
 import 'screen/auth/change_password/ChangePasswordPhoneScreen.dart';
 import 'screen/auth/register/RegisterPhoneScreen.dart';
+import 'screen/events/EventEditScreen.dart';
 import 'screen/events/EventsMapScreen.dart';
 import 'screen/auth/WelcomeScreen.dart';
 import 'screen/auth/change_password/ChangePasswordScreen.dart';
@@ -27,14 +29,17 @@ import 'screen/auth/login/LoginScreen.dart';
 import 'screen/auth/register/RegisterScreen.dart';
 import 'screen/error/ErrorPage.dart';
 import 'screen/events/EventCreateScreen.dart';
-import 'screen/events/EventDetailScreen.dart';
+import 'screen/events/EventDetailsScreen.dart';
 import 'screen/events/EventsScreen.dart';
 import 'screen/setting/SettingsScreen.dart';
 import 'screen/splash/SplashScreen.dart';
 import 'screen/user/UserDetailsScreen.dart';
+import 'screen/vehicles/VehicleCreateScreen.dart';
+import 'screen/vehicles/VehicleDetailsScreen.dart';
+import 'screen/vehicles/VehicleEditScreen.dart';
 import 'service/AuthService.dart';
 import 'utils/FadeTransitionPage.dart';
-import 'widget/RideScaffold.dart';
+import 'widget/NavigationScaffold.dart';
 
 class AppRouter {
   final AuthService auth;
@@ -46,25 +51,113 @@ class AppRouter {
     debugLogDiagnostics: true,
     initialLocation: _redirectToSplash(),
     routes: [
-      GoRoute(name: AppRouteName.root, path: '/', redirect: _redirectToEvents),
-      GoRoute(name: AppRouteName.splash, path: '/splash', pageBuilder: _splashPage),
-      GoRoute(name: AppRouteName.welcome, path: '/auth', pageBuilder: _welcomePage, routes: [
-        GoRoute(name: AppRouteName.login, path: 'login', pageBuilder: _loginPage, routes: [
-          GoRoute(name: AppRouteName.changePasswordPhone, path: 'change-password-phone', pageBuilder: _changePasswordPhonePage),
-          GoRoute(name: AppRouteName.changePassword, path: 'change-password', pageBuilder: _changePasswordPage),
-        ]),
-        GoRoute(name: AppRouteName.registerPhone, path: 'register-phone', pageBuilder: _registerPhonePage),
-        GoRoute(name: AppRouteName.register, path: 'register', pageBuilder: _registerPage),
-      ]),
-      GoRoute(name: AppRouteName.events, path: '/events', pageBuilder: _eventsPage, routes: [
-        GoRoute(name: AppRouteName.eventsMap, path: 'map', pageBuilder: _eventsMapPage),
-        GoRoute(name: AppRouteName.eventDetail, path: ':eventId', pageBuilder: _eventDetailsPage, routes: [
-          GoRoute(name: AppRouteName.eventEdit, path: 'edit', pageBuilder: _eventCreatePage),
-        ]),
-        GoRoute(name: AppRouteName.eventCreate, path: 'create', pageBuilder: _eventCreatePage),
-      ]),
-      GoRoute(name: AppRouteName.userDetail, path: '/user/:userId', pageBuilder: _userDetailsPage),
-      GoRoute(name: AppRouteName.settings, path: '/settings', pageBuilder: _settingsPage),
+      GoRoute(
+        name: AppRouteName.root,
+        path: '/',
+        redirect: _redirectToEvents,
+      ),
+      GoRoute(
+        name: AppRouteName.splash,
+        path: '/splash',
+        pageBuilder: _splashPage,
+      ),
+      GoRoute(
+        name: AppRouteName.welcome,
+        path: '/auth',
+        pageBuilder: _welcomePage,
+        routes: [
+          GoRoute(
+            name: AppRouteName.login,
+            path: 'login',
+            pageBuilder: _loginPage,
+            routes: [
+              GoRoute(
+                name: AppRouteName.changePasswordPhone,
+                path: 'change-password-phone',
+                pageBuilder: _changePasswordPhonePage,
+              ),
+              GoRoute(
+                name: AppRouteName.changePassword,
+                path: 'change-password',
+                pageBuilder: _changePasswordPage,
+              ),
+            ],
+          ),
+          GoRoute(
+            name: AppRouteName.registerPhone,
+            path: 'register-phone',
+            pageBuilder: _registerPhonePage,
+          ),
+          GoRoute(
+            name: AppRouteName.register,
+            path: 'register',
+            pageBuilder: _registerPage,
+          ),
+        ],
+      ),
+      GoRoute(
+        name: AppRouteName.events,
+        path: '/events',
+        pageBuilder: _eventsPage,
+        routes: [
+          GoRoute(
+            name: AppRouteName.eventsMap,
+            path: 'map',
+            pageBuilder: _eventsMapPage,
+          ),
+          GoRoute(
+            name: AppRouteName.eventCreate,
+            path: 'create',
+            pageBuilder: _eventCreatePage,
+          ),
+          GoRoute(
+            name: AppRouteName.eventDetail,
+            path: ':eventId',
+            pageBuilder: _eventDetailPage,
+            routes: [
+              GoRoute(
+                name: AppRouteName.eventEdit,
+                path: 'edit',
+                pageBuilder: _eventEditPage,
+              ),
+            ],
+          ),
+        ],
+      ),
+      GoRoute(
+        name: AppRouteName.userDetail,
+        path: '/user/:userId',
+        pageBuilder: _userDetailsPage,
+      ),
+      GoRoute(
+        name: AppRouteName.vehicles,
+        path: '/vehicles',
+        pageBuilder: _vehiclesPage,
+        routes: [
+          GoRoute(
+            name: AppRouteName.vehicleCreate,
+            path: 'create',
+            pageBuilder: _vehicleCreatePage,
+          ),
+          GoRoute(
+            name: AppRouteName.vehicleDetail,
+            path: ':vehicleId',
+            pageBuilder: _vehicleDetailPage,
+            routes: [
+              GoRoute(
+                name: AppRouteName.vehicleEdit,
+                path: 'edit',
+                pageBuilder: _vehicleEditPage,
+              ),
+            ],
+          ),
+        ],
+      ),
+      GoRoute(
+        name: AppRouteName.settings,
+        path: '/settings',
+        pageBuilder: _settingsPage,
+      ),
     ],
     errorPageBuilder: _errorPage,
     redirect: _guard,
@@ -81,10 +174,6 @@ class AppRouter {
   String _redirectToEvents(BuildContext context, GoRouterState state) {
     return '/events';
   }
-
-  // String _redirectToWelcome(BuildContext context, GoRouterState state) {
-  //   return '/auth';
-  // }
 
   FadeTransitionPage _splashPage(BuildContext context, GoRouterState state) {
     return FadeTransitionPage(
@@ -138,7 +227,7 @@ class AppRouter {
   FadeTransitionPage _eventsPage(BuildContext context, GoRouterState state) {
     return FadeTransitionPage(
       key: state.pageKey,
-      child: const RideScaffold(
+      child: const NavigationScaffold(
         selectedTab: ScaffoldTab.events,
         child: EventsScreen(),
       ),
@@ -148,26 +237,88 @@ class AppRouter {
   FadeTransitionPage _eventsMapPage(BuildContext context, GoRouterState state) {
     return FadeTransitionPage(
       key: state.pageKey,
-      child: const RideScaffold(
+      child: const NavigationScaffold(
         selectedTab: ScaffoldTab.map,
         child: EventsMapScreen(),
       ),
     );
   }
 
-  FadeTransitionPage _eventDetailsPage(BuildContext context, GoRouterState state) {
+  FadeTransitionPage _eventCreatePage(BuildContext context, GoRouterState state) {
+    return FadeTransitionPage(
+      key: state.pageKey,
+      child: const NavigationScaffold(
+        selectedTab: ScaffoldTab.events,
+        child: EventCreateScreen(),
+      ),
+    );
+  }
+
+  FadeTransitionPage _eventDetailPage(BuildContext context, GoRouterState state) {
     final eventId = int.parse(state.params['eventId']!);
 
     return FadeTransitionPage(
       key: state.pageKey,
-      child: EventDetailScreen(eventId: eventId),
+      child: NavigationScaffold(
+        selectedTab: ScaffoldTab.events,
+        child: EventDetailsScreen(eventId: eventId),
+      ),
     );
   }
 
-  FadeTransitionPage _eventCreatePage(BuildContext context, GoRouterState state) {
+  FadeTransitionPage _eventEditPage(BuildContext context, GoRouterState state) {
+    final eventId = int.parse(state.params['eventId']!);
+
     return FadeTransitionPage(
       key: state.pageKey,
-      child: const EventCreateScreen(),
+      child: NavigationScaffold(
+        selectedTab: ScaffoldTab.events,
+        child: EventEditScreen(eventId: eventId),
+      ),
+    );
+  }
+
+  FadeTransitionPage _vehiclesPage(BuildContext context, GoRouterState state) {
+    return FadeTransitionPage(
+      key: state.pageKey,
+      child: const NavigationScaffold(
+        selectedTab: ScaffoldTab.vehicles,
+        child: VehiclesScreen(),
+      ),
+    );
+  }
+
+  FadeTransitionPage _vehicleCreatePage(BuildContext context, GoRouterState state) {
+    return FadeTransitionPage(
+      key: state.pageKey,
+      child: const NavigationScaffold(
+        selectedTab: ScaffoldTab.vehicles,
+        child: VehicleCreateScreen(),
+      ),
+    );
+  }
+
+  FadeTransitionPage _vehicleDetailPage(BuildContext context, GoRouterState state) {
+    final vehicleId = int.parse(state.params['vehicleId']!);
+
+    return FadeTransitionPage(
+      key: state.pageKey,
+      child: NavigationScaffold(
+        selectedTab: ScaffoldTab.vehicles,
+        child: VehicleDetailsScreen(vehicleId: vehicleId),
+      ),
+    );
+  }
+
+  FadeTransitionPage _vehicleEditPage(BuildContext context, GoRouterState state) {
+    final vehicleId = int.parse(state.params['vehicleId']!);
+
+    return FadeTransitionPage(
+      key: state.pageKey,
+      child: NavigationScaffold(
+        selectedTab: ScaffoldTab.vehicles,
+        child: VehicleEditScreen(vehicleId: vehicleId),
+      ),
     );
   }
 
@@ -176,14 +327,17 @@ class AppRouter {
 
     return FadeTransitionPage(
       key: state.pageKey,
-      child: UserDetailsScreen(userId: userId),
+      child: NavigationScaffold(
+        selectedTab: ScaffoldTab.profile,
+        child: UserDetailsScreen(userId: userId),
+      ),
     );
   }
 
   FadeTransitionPage _settingsPage(BuildContext context, GoRouterState state) {
     return FadeTransitionPage(
       key: state.pageKey,
-      child: const RideScaffold(
+      child: const NavigationScaffold(
         selectedTab: ScaffoldTab.settings,
         child: SettingsScreen(),
       ),

@@ -82,8 +82,7 @@ class RegisterService extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> signUp(
-      String username, String password, int verificationCode) async {
+  Future<void> signUp(String username, String password, int verificationCode) async {
     if (_phone == null) return;
     if (_phoneToken == null) return;
 

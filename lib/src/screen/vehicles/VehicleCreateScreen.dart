@@ -14,16 +14,16 @@
 
 import 'package:flutter/material.dart';
 
-class EventCreateScreen extends StatefulWidget {
-  const EventCreateScreen({super.key});
+class VehicleCreateScreen extends StatefulWidget {
+  const VehicleCreateScreen({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return _StateEventCreateScreen();
+    return _StateVehicleCreateScreen();
   }
 }
 
-class _StateEventCreateScreen extends State<EventCreateScreen> {
+class _StateVehicleCreateScreen extends State<VehicleCreateScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -31,9 +31,7 @@ class _StateEventCreateScreen extends State<EventCreateScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(
-            child: Text('Create event'),
-          ),
+          title: const Text('Create vehicle'),
         ),
         body: Container(
           padding: const EdgeInsets.all(20),

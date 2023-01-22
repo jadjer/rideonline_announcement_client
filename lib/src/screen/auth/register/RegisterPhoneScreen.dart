@@ -24,7 +24,7 @@ class RegisterPhoneScreen extends StatefulWidget {
   const RegisterPhoneScreen({super.key});
 
   @override
-  State<RegisterPhoneScreen> createState() {
+  State<StatefulWidget> createState() {
     return _RegisterPhoneScreenState();
   }
 }
@@ -50,62 +50,72 @@ class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {
 
     return AuthScaffold(
       title: 'Phone number',
-      widgets: [
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(143, 148, 251, 1),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(143, 148, 251, 1),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
                   color: Color.fromRGBO(255, 255, 255, .2),
                   blurRadius: 20.0,
-                  offset: Offset(0, 10)),
-            ],
-          ),
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  decoration: InputDecoration(
+                  offset: Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: '+375123456789',
-                      hintStyle: TextStyle(color: Colors.grey[400]),
-                      errorText: register.errorMessage),
-                  autofocus: true,
-                  keyboardType: TextInputType.phone,
-                  controller: _phoneTextController,
-                  onChanged: (String value) async {
-                    await register.existPhone(value);
-                  },
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                      errorText: register.errorMessage,
+                    ),
+                    autofocus: true,
+                    keyboardType: TextInputType.phone,
+                    controller: _phoneTextController,
+                    onChanged: (String value) async {
+                      await register.existPhone(value);
+                    },
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 30),
-        InkWell(
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(143, 148, 251, 1),
-                  Color.fromRGBO(143, 148, 251, .6),
-                ])),
-            child: const Center(
-              child: Text("Verify",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
             ),
           ),
-          onTap: () async {
-            // final auth = Provider.of<AuthService>(context, listen: false);
-            await register.phoneVerify(_phoneTextController.text);
-          },
-        ),
-      ],
+          const SizedBox(height: 30),
+          InkWell(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: const LinearGradient(colors: [
+                    Color.fromRGBO(143, 148, 251, 1),
+                    Color.fromRGBO(143, 148, 251, .6),
+                  ])),
+              child: const Center(
+                child: Text(
+                  "Verify",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            onTap: () async {
+              // final auth = Provider.of<AuthService>(context, listen: false);
+              await register.phoneVerify(_phoneTextController.text);
+            },
+          ),
+        ],
+      ),
     );
   }
 

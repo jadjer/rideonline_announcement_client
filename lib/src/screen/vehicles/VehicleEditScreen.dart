@@ -14,32 +14,19 @@
 
 import 'package:flutter/material.dart';
 
-class CustomText extends StatelessWidget {
-  final String text;
-  final Color? textColor;
-  final double? fontSize;
-  final FontStyle? fontStyle;
-  final FontWeight? fontWeight;
+class VehicleEditScreen extends StatelessWidget {
+  final int vehicleId;
 
-  const CustomText(
-      {super.key,
-      required this.text,
-      this.textColor,
-      this.fontSize,
-      this.fontStyle,
-      this.fontWeight});
+  const VehicleEditScreen({super.key, required this.vehicleId});
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      child: Text(
-        text,
-        style: TextStyle(
-          color: textColor ?? Colors.black,
-          fontSize: fontSize,
-          fontWeight: fontWeight,
-          fontStyle: fontStyle,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Edit vehicle'),
         ),
+        body: const Text('qwe'),
       ),
     );
   }

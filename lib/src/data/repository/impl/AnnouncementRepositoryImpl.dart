@@ -18,6 +18,7 @@ import 'dart:developer';
 
 import 'package:http/http.dart';
 
+import '../../model/EventResponse.dart';
 import '../AnnouncementRepository.dart';
 import '../../model/EventsResponse.dart';
 import '../../domain/Event.dart';
@@ -40,24 +41,24 @@ class AnnouncementRepositoryImpl implements AnnouncementRepository {
   //   return EventResponse.fromJson(responseJson);
   // }
 
-  // @override
-  // Future<EventResponse> getEvent(int eventId) async {
-  //   final url = Uri.https(_baseUrl, 'events/$eventId');
-  //
-  //   final response = await _client.get(url);
-  //   final responseJson = jsonDecode(response.body);
-  //
-  //   return EventResponse.fromJson(responseJson);
-  // }
-
   @override
   Future<EventsResponse> getEvents() async {
     final url = Uri.https(_baseUrl, 'events');
-  
+
     final response = await _client.get(url);
     final responseJson = jsonDecode(response.body);
-  
+
     return EventsResponse.fromJson(responseJson);
+  }
+
+  @override
+  Future<EventResponse> getEvent(int eventId) async {
+    final url = Uri.https(_baseUrl, 'events/$eventId');
+
+    final response = await _client.get(url);
+    final responseJson = jsonDecode(response.body);
+
+    return EventResponse.fromJson(responseJson);
   }
 
   // @override

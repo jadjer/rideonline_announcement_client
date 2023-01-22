@@ -24,7 +24,7 @@ class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({super.key});
 
   @override
-  State<ChangePasswordScreen> createState() {
+  State<StatefulWidget> createState() {
     return _ChangePasswordScreenState();
   }
 }
@@ -45,76 +45,104 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     return AuthScaffold(
       title: 'Change password',
-      widgets: [
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(143, 148, 251, 1),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: const Color.fromRGBO(143, 148, 251, 1),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
                   color: Color.fromRGBO(255, 255, 255, .2),
                   blurRadius: 20.0,
-                  offset: Offset(0, 10)),
-            ],
-          ),
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                decoration: const BoxDecoration(
-                    border: Border(bottom: BorderSide(color: Colors.grey))),
-                child: TextField(
-                  decoration: InputDecoration(
+                  offset: Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Password',
-                      hintStyle: TextStyle(color: Colors.grey[400])),
-                  autofocus: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  controller: _passwordTextController,
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    autofocus: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    controller: _passwordTextController,
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8.0),
-                child: TextField(
-                  maxLength: 6,
-                  decoration: InputDecoration(
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    maxLength: 6,
+                    decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Verify code',
-                      hintStyle: TextStyle(color: Colors.grey[400])),
-                  autofocus: true,
-                  keyboardType: TextInputType.number,
-                  controller: _verificationCodeTextController,
+                      hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                      ),
+                    ),
+                    autofocus: true,
+                    keyboardType: TextInputType.number,
+                    controller: _verificationCodeTextController,
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 30),
-        InkWell(
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(143, 148, 251, 1),
-                  Color.fromRGBO(143, 148, 251, .6),
-                ])),
-            child: const Center(
-              child: Text("Change",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold)),
+              ],
             ),
           ),
-          onTap: () async {
-            final password = _passwordTextController.text;
-            final verificationCode =
-                int.parse(_verificationCodeTextController.text);
+          const SizedBox(height: 30),
+          InkWell(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromRGBO(143, 148, 251, 1),
+                    Color.fromRGBO(143, 148, 251, .6),
+                  ],
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  "Change",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            onTap: () async {
+              final password = _passwordTextController.text;
+              final verificationCode = int.parse(_verificationCodeTextController.text);
 
-            await changePassword.changePassword(password, verificationCode);
-          },
-        ),
-      ],
+              await changePassword.changePassword(password, verificationCode);
+            },
+          ),
+        ],
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    _passwordTextController.dispose();
+    _verificationCodeTextController.dispose();
+
+    super.dispose();
   }
 }

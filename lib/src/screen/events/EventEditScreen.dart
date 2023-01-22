@@ -15,10 +15,19 @@
 import 'package:flutter/material.dart';
 
 class EventEditScreen extends StatelessWidget {
-  const EventEditScreen({super.key});
+  final int eventId;
+
+  const EventEditScreen({super.key, required this.eventId});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Edit event'),
+        ),
+        body: const Text('qwe'),
+      ),
+    );
   }
 }
