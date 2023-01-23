@@ -24,9 +24,7 @@ class RegisterPhoneScreen extends StatefulWidget {
   const RegisterPhoneScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _RegisterPhoneScreenState();
-  }
+  State<StatefulWidget> createState() => _RegisterPhoneScreenState();
 }
 
 class _RegisterPhoneScreenState extends State<RegisterPhoneScreen> {

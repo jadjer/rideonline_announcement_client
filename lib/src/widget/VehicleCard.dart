@@ -27,8 +27,7 @@ class VehicleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 4.0,
-      borderOnForeground: true,
+      elevation: 1.0,
       color: Colors.white10,
       child: InkWell(
         onTap: onTap,

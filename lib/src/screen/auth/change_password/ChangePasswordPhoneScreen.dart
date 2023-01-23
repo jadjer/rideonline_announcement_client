@@ -24,9 +24,7 @@ class ChangePasswordPhoneScreen extends StatefulWidget {
   const ChangePasswordPhoneScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _ChangePasswordPhoneScreenState();
-  }
+  State<StatefulWidget> createState() => _ChangePasswordPhoneScreenState();
 }
 
 class _ChangePasswordPhoneScreenState extends State<ChangePasswordPhoneScreen> {

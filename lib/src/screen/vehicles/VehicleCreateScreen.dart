@@ -18,12 +18,10 @@ class VehicleCreateScreen extends StatefulWidget {
   const VehicleCreateScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _StateVehicleCreateScreen();
-  }
+  State<StatefulWidget> createState() => _VehicleCreateScreenState();
 }
 
-class _StateVehicleCreateScreen extends State<VehicleCreateScreen> {
+class _VehicleCreateScreenState extends State<VehicleCreateScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override

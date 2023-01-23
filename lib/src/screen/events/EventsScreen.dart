@@ -25,15 +25,15 @@ class EventsScreen extends StatefulWidget {
   const EventsScreen({super.key});
 
   @override
-  State<EventsScreen> createState() => _EventsScreenState();
+  State<StatefulWidget> createState() => _EventsScreenState();
 }
 
 class _EventsScreenState extends State<EventsScreen> {
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
-    final _announcementService = context.read<AnnouncementService>();
+    final announcementService = context.read<AnnouncementService>();
 
     return SafeArea(
       child: Scaffold(
@@ -41,9 +41,15 @@ class _EventsScreenState extends State<EventsScreen> {
           title: const Text('Events'),
           actions: <Widget>[
             IconButton(
+              icon: const Icon(Icons.map),
+              onPressed: () {
+                context.goNamed(AppRouteName.eventsMap);
+              },
+            ),
+            IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
-                refreshIndicatorKey.currentState?.show();
+                _refreshIndicatorKey.currentState?.show();
               },
             ),
             IconButton(
@@ -53,12 +59,12 @@ class _EventsScreenState extends State<EventsScreen> {
           ],
         ),
         body: RefreshIndicator(
-          key: refreshIndicatorKey,
+          key: _refreshIndicatorKey,
           onRefresh: () async {
             return Future<void>.delayed(const Duration(seconds: 3));
           },
           child: FutureBuilder<List<Event>>(
-            future: _announcementService.getEvents(),
+            future: announcementService.getEvents(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 final error = snapshot.error;
@@ -92,9 +98,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 10,
-                  );
+                  return const Divider();
                 },
               );
             },

@@ -28,38 +28,33 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 4.0,
-      borderOnForeground: true,
-      color: Colors.white10,
-      child: InkWell(
-        onTap: onTap,
-        child: ListTile(
-          leading: const Icon(
-            Icons.event,
-            size: 60,
-          ),
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          subtitle: Text(
-            subtitle,
-            style: const TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          trailing: const Text(
-            '596m',
-            style: TextStyle(
-              fontSize: 18,
-            ),
-          ),
-          contentPadding: const EdgeInsets.all(25.0),
+    return InkWell(
+      onTap: onTap,
+      child: ListTile(
+        leading: const Icon(
+          Icons.event,
+          size: 60,
         ),
+        title: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        trailing: const Text(
+          '596m',
+          style: TextStyle(
+            fontSize: 18,
+          ),
+        ),
+        contentPadding: const EdgeInsets.all(25.0),
       ),
     );
   }

@@ -34,20 +34,20 @@ class PointOnMap extends StatelessWidget {
         zoom: 18.0,
         maxZoom: 18.0,
         minZoom: 12.0,
+        rotation: 0.0,
+        interactiveFlags: InteractiveFlag.all & ~InteractiveFlag.rotate,
       ),
       nonRotatedChildren: <Widget>[
         MarkerLayer(
           markers: <Marker>[
             Marker(
               point: LatLng(latitude, longitude),
-              width: 80,
-              height: 80,
-              builder: (context) {
-                return const Icon(
-                  Icons.location_pin,
-                  color: Colors.blue,
-                );
-              },
+              height: 60,
+              builder: (ctx) => const Icon(
+                Icons.location_on,
+                color: Colors.blue,
+                size: 48.0,
+              ),
             ),
           ],
         ),

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:announcement/src/widget/PointOnMap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -21,10 +22,10 @@ class EventsMapScreen extends StatefulWidget {
   const EventsMapScreen({super.key});
 
   @override
-  State<EventsMapScreen> createState() => EventsMapScreenState();
+  State<EventsMapScreen> createState() => _EventsMapScreenState();
 }
 
-class EventsMapScreenState extends State<EventsMapScreen> {
+class _EventsMapScreenState extends State<EventsMapScreen> {
   late MapController controller;
 
   @override
@@ -34,41 +35,7 @@ class EventsMapScreenState extends State<EventsMapScreen> {
         appBar: AppBar(
           title: const Text('Events on map'),
         ),
-        body: SlidingUpPanel(
-          backdropEnabled: true,
-          defaultPanelState: PanelState.OPEN,
-          panel: const Center(
-            child: Text(
-              'qweaf rgrhytut rdft g ',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-          collapsed: const Center(
-            child: Text(
-              'Trip data',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-              ),
-            ),
-          ),
-          body: FlutterMap(
-            options: MapOptions(
-              center: LatLng(55.171356, 30.261677),
-              zoom: 18.0,
-              maxZoom: 18.0,
-              minZoom: 12.0,
-            ),
-            children: <Widget>[
-              TileLayer(
-                urlTemplate: 'https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}@2x.png?key=4Qeq0aHMQpH9LdJhF1N9',
-                userAgentPackageName: 'by.jadjer.rideonline.announcement',
-              ),
-            ],
-          ),
-        ),
+        body: const PointOnMap(latitude: 55.171356, longitude: 30.261677),
       ),
     );
   }

@@ -238,7 +238,7 @@ class AppRouter {
     return FadeTransitionPage(
       key: state.pageKey,
       child: const NavigationScaffold(
-        selectedTab: ScaffoldTab.map,
+        selectedTab: ScaffoldTab.events,
         child: EventsMapScreen(),
       ),
     );

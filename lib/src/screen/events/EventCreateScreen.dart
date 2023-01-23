@@ -18,12 +18,10 @@ class EventCreateScreen extends StatefulWidget {
   const EventCreateScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _StateEventCreateScreen();
-  }
+  State<StatefulWidget> createState() => _EventCreateScreenState();
 }
 
-class _StateEventCreateScreen extends State<EventCreateScreen> {
+class _EventCreateScreenState extends State<EventCreateScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override

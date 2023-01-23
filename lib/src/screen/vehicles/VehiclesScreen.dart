@@ -20,7 +20,6 @@ import 'package:provider/provider.dart';
 import '../../AppRouteName.dart';
 import '../../data/domain/Vehicle.dart';
 import '../../service/VehicleService.dart';
-import '../../widget/EventCard.dart';
 
 class VehiclesScreen extends StatefulWidget {
   const VehiclesScreen({super.key});
@@ -30,7 +29,7 @@ class VehiclesScreen extends StatefulWidget {
 }
 
 class _VehiclesScreenState extends State<VehiclesScreen> {
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +38,12 @@ class _VehiclesScreenState extends State<VehiclesScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('My vehicles'),
+          title: const Text('Vehicles'),
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
-                refreshIndicatorKey.currentState?.show();
+                _refreshIndicatorKey.currentState?.show();
               },
             ),
             IconButton(
@@ -54,7 +53,7 @@ class _VehiclesScreenState extends State<VehiclesScreen> {
           ],
         ),
         body: RefreshIndicator(
-          key: refreshIndicatorKey,
+          key: _refreshIndicatorKey,
           onRefresh: () async {
             return Future<void>.delayed(const Duration(seconds: 3));
           },

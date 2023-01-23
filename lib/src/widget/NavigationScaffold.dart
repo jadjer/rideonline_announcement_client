@@ -18,7 +18,7 @@ import 'package:go_router/go_router.dart';
 
 import '../AppRouteName.dart';
 
-enum ScaffoldTab { events, map, profile, vehicles, settings }
+enum ScaffoldTab { events, vehicles, profile, settings }
 
 class NavigationScaffold extends StatelessWidget {
   final Widget child;
@@ -36,19 +36,16 @@ class NavigationScaffold extends StatelessWidget {
       child: AdaptiveNavigationScaffold(
         selectedIndex: selectedTab.index,
         body: child,
-        onDestinationSelected: (int idx) {
-          switch (ScaffoldTab.values[idx]) {
+        onDestinationSelected: (index) {
+          switch (ScaffoldTab.values[index]) {
             case ScaffoldTab.events:
               context.goNamed(AppRouteName.events);
               break;
-            case ScaffoldTab.map:
-              context.goNamed(AppRouteName.eventsMap);
+            case ScaffoldTab.vehicles:
+              context.goNamed(AppRouteName.vehicles);
               break;
             case ScaffoldTab.profile:
               context.goNamed(AppRouteName.userDetail);
-              break;
-            case ScaffoldTab.vehicles:
-              context.goNamed(AppRouteName.vehicles);
               break;
             case ScaffoldTab.settings:
               context.goNamed(AppRouteName.settings);
@@ -61,16 +58,12 @@ class NavigationScaffold extends StatelessWidget {
             icon: Icons.event,
           ),
           AdaptiveScaffoldDestination(
-            title: 'Events on map',
-            icon: Icons.map,
+            title: 'My vehicles',
+            icon: Icons.two_wheeler,
           ),
           AdaptiveScaffoldDestination(
             title: 'Profile',
             icon: Icons.person,
-          ),
-          AdaptiveScaffoldDestination(
-            title: 'My vehicles',
-            icon: Icons.two_wheeler,
           ),
           AdaptiveScaffoldDestination(
             title: 'Settings',
