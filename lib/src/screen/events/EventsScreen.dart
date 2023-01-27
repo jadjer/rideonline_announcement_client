@@ -68,39 +68,15 @@ class _EventsScreenState extends State<EventsScreen> {
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 final error = snapshot.error;
-
-                return Center(
-                  child: Text(error.toString()),
-                );
+                return _errorPage(error.toString());
               }
 
-              if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator());
+              if (snapshot.hasData) {
+                final eventsData = snapshot.data!;
+                return _eventsListPage(eventsData);
               }
 
-              final eventsData = snapshot.data!;
-
-              return ListView.separated(
-                padding: const EdgeInsets.all(8),
-                itemCount: eventsData.length,
-                itemBuilder: (context, index) {
-                  final event = eventsData[index];
-
-                  return EventCard(
-                    title: event.title,
-                    subtitle: event.subtitle,
-                    onTap: () {
-                      context.goNamed(
-                        AppRouteName.eventDetail,
-                        params: {'eventId': event.id.toString()},
-                      );
-                    },
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-              );
+              return _loadingPage();
             },
           ),
         ),
@@ -111,6 +87,42 @@ class _EventsScreenState extends State<EventsScreen> {
           child: const Icon(Icons.add),
         ),
       ),
+    );
+  }
+
+  Widget _errorPage(String errorMessage) {
+    return Center(
+      child: Text(errorMessage),
+    );
+  }
+
+  Widget _loadingPage() {
+    return const Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _eventsListPage(List<Event> events) {
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: events.length,
+      itemBuilder: (context, index) {
+        final event = events[index];
+
+        return EventCard(
+          title: event.title,
+          subtitle: event.subtitle,
+          onTap: () {
+            context.goNamed(
+              AppRouteName.eventDetail,
+              params: {'eventId': event.id.toString()},
+            );
+          },
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const Divider();
+      },
     );
   }
 }
