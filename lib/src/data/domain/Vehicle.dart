@@ -12,24 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class ChangePasswordRequest {
-  final String phone;
-  final String password;
-  final int verificationCode;
-  final String phoneToken;
+class Vehicle {
+  final int id;
+  final String title;
+  final String subtitle;
+  final String text;
+  final String picture;
 
-  ChangePasswordRequest(
-      {required this.phone,
-      required this.password,
-      required this.verificationCode,
-      required this.phoneToken});
+  Vehicle({
+    required this.id,
+    required this.title,
+    required this.subtitle,
+    required this.text,
+    required this.picture,
+  });
+
+  factory Vehicle.fromJson(Map<String, dynamic> json) {
+    return Vehicle(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      subtitle: json['subtitle'] as String,
+      text: json['text'] as String,
+      picture: json['picture'] as String,
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'phone': phone,
-      'password': password,
-      'verification_code': verificationCode,
-      'phone_token': phoneToken,
+      'id': id,
+      'title': title,
+      'subtitle': subtitle,
+      'text': text,
+      'picture': picture,
     };
   }
 }

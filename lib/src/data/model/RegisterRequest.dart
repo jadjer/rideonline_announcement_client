@@ -19,7 +19,12 @@ class RegisterRequest {
   final int verificationCode;
   final String phoneToken;
 
-  RegisterRequest({required this.phone, required this.username, required this.password, required this.verificationCode, required this.phoneToken});
+  RegisterRequest(
+      {required this.phone,
+      required this.username,
+      required this.password,
+      required this.verificationCode,
+      required this.phoneToken});
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

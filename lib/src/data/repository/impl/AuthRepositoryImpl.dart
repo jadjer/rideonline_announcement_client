@@ -31,7 +31,7 @@ import '../../model/RegisterRequest.dart';
 import '../../model/TokenResponse.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  final _baseUrl = 'auth.ride2online.jadjer.by';
+  final _baseUrl = 'auth.rideonline.jadjer.by';
 
   late Client _client;
 

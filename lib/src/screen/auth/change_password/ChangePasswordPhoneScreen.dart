@@ -24,9 +24,7 @@ class ChangePasswordPhoneScreen extends StatefulWidget {
   const ChangePasswordPhoneScreen({super.key});
 
   @override
-  State<ChangePasswordPhoneScreen> createState() {
-    return _ChangePasswordPhoneScreenState();
-  }
+  State<StatefulWidget> createState() => _ChangePasswordPhoneScreenState();
 }
 
 class _ChangePasswordPhoneScreenState extends State<ChangePasswordPhoneScreen> {
@@ -50,53 +48,77 @@ class _ChangePasswordPhoneScreenState extends State<ChangePasswordPhoneScreen> {
 
     return AuthScaffold(
       title: 'Phone number',
-      widgets: [
-        Container(
-          padding: const EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: const Color.fromRGBO(143, 148, 251, 1),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: const [
-              BoxShadow(color: Color.fromRGBO(255, 255, 255, .2), blurRadius: 20.0, offset: Offset(0, 10)),
-            ],
-          ),
-          child: Container(
-            padding: const EdgeInsets.all(8.0),
-            child: TextField(
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: '+375123456789',
-                hintStyle: TextStyle(color: Colors.grey[400]),
-                // errorText: register.errorMessage,
-              ),
-              autofocus: true,
-              keyboardType: TextInputType.phone,
-              controller: _phoneTextController,
-              onChanged: (String value) async {
-                // await register.existPhone(value);
-              },
-            ),
-          ),
-        ),
-        const SizedBox(height: 30),
-        InkWell(
-          child: Container(
-            height: 50,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(5),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(143, 148, 251, 1),
-                  Color.fromRGBO(143, 148, 251, .6),
-                ])),
-            child: const Center(
-              child: Text("Reset", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+              color: const Color.fromRGBO(143, 148, 251, 1),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(255, 255, 255, .2),
+                  blurRadius: 20.0,
+                  offset: Offset(0, 10),
+                ),
+              ],
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '+375123456789',
+                  hintStyle: TextStyle(
+                    color: Colors.grey[400],
+                  ),
+                  // errorText: register.errorMessage,
+                ),
+                autofocus: true,
+                keyboardType: TextInputType.phone,
+                controller: _phoneTextController,
+                onChanged: (String value) async {
+                  // await register.existPhone(value);
+                },
+              ),
             ),
           ),
-          onTap: () async {
-            await changePassword.phoneVerify(_phoneTextController.text);
-          },
-        ),
-      ],
+          const SizedBox(height: 30),
+          InkWell(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromRGBO(143, 148, 251, 1),
+                    Color.fromRGBO(143, 148, 251, .6),
+                  ],
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  "Reset",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            onTap: () async {
+              await changePassword.phoneVerify(_phoneTextController.text);
+            },
+          ),
+        ],
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    _phoneTextController.dispose();
+
+    super.dispose();
   }
 }

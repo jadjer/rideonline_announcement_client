@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.2.19+19
 
 environment:
-  sdk: '>=3.0.0-65.0.dev <4.0.0'
+  sdk: '>=2.19.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -22,6 +22,10 @@ dependencies:
   adaptive_navigation: ^0.0.7
   web_socket_channel: ^2.3.0
   flutter_map: ^3.1.0
+  sliding_up_panel: ^2.0.0+1
+  infinite_scroll_pagination: ^3.2.0
+  animations: ^2.0.7
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

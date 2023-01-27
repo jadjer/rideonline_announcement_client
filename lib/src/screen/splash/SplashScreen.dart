@@ -22,9 +22,7 @@ class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() {
-    return _SplashScreenState();
-  }
+  State<StatefulWidget> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMixin {
@@ -33,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
+
     _controller = AnimationController(vsync: this);
   }
 
@@ -40,14 +39,20 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   Widget build(BuildContext context) {
     return SafeArea(
       child: Center(
-        child: Lottie.asset('assets/animation/AndroidWave.json', controller: _controller, onLoaded: (LottieComposition composition) {
-          _controller
-            ..addStatusListener((AnimationStatus status) {
-              if (status == AnimationStatus.completed) context.goNamed(AppRouteName.root);
-            })
-            ..duration = composition.duration
-            ..forward();
-        }),
+        child: Lottie.asset(
+          'assets/animation/AndroidWave.json',
+          controller: _controller,
+          onLoaded: (LottieComposition composition) {
+            _controller
+              ..addStatusListener((AnimationStatus status) {
+                if (status == AnimationStatus.completed) {
+                  context.goNamed(AppRouteName.root);
+                }
+              })
+              ..duration = composition.duration
+              ..forward();
+          },
+        ),
       ),
     );
   }
@@ -55,6 +60,7 @@ class _SplashScreenState extends State<SplashScreen> with TickerProviderStateMix
   @override
   void dispose() {
     _controller.dispose();
+
     super.dispose();
   }
 }

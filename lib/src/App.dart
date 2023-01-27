@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:announcement/src/service/VehicleService.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ import 'AppRouter.dart';
 import 'data/AppContainer.dart';
 import 'service/ChangePasswordService.dart';
 import 'service/AuthService.dart';
-import 'service/EventsService.dart';
+import 'service/AnnouncementService.dart';
 import 'service/RegisterService.dart';
 import 'theme/AppThemeDark.dart';
 import 'theme/AppThemeLight.dart';
@@ -28,16 +29,18 @@ class App extends StatelessWidget {
   late final AppRouter _appRouter;
   late final AuthService _authService;
   late final AppContainer _appContainer;
-  late final EventsService _eventsService;
+  late final VehicleService _vehicleService;
   late final RegisterService _registerService;
+  late final AnnouncementService _announcementService;
   late final ChangePasswordService _changePasswordService;
 
   App(AppContainer appContainer, {super.key}) {
     _appContainer = appContainer;
 
     _authService = AuthService(_appContainer.authRepository);
-    _eventsService = EventsService(_appContainer.eventsRepository);
+    _vehicleService = VehicleService(_appContainer.announcementRepository);
     _registerService = RegisterService(_appContainer.authRepository);
+    _announcementService = AnnouncementService(_appContainer.announcementRepository);
     _changePasswordService = ChangePasswordService(_appContainer.authRepository);
 
     _appRouter = AppRouter(auth: _authService);
@@ -52,7 +55,8 @@ class App extends StatelessWidget {
         ChangeNotifierProvider<AuthService>.value(value: _authService),
         ChangeNotifierProvider<RegisterService>.value(value: _registerService),
         ChangeNotifierProvider<ChangePasswordService>.value(value: _changePasswordService),
-        ChangeNotifierProvider<EventsService>.value(value: _eventsService),
+        ChangeNotifierProvider<AnnouncementService>.value(value: _announcementService),
+        ChangeNotifierProvider<VehicleService>.value(value: _vehicleService),
         Provider<AppRouter>.value(value: _appRouter),
       ],
       child: Builder(
@@ -62,6 +66,7 @@ class App extends StatelessWidget {
           return MaterialApp.router(
             routerConfig: appRoute.router,
             title: 'Moto events',
+            debugShowCheckedModeBanner: false,
             theme: AppThemeLight().toThemeData(),
             darkTheme: AppThemeDark().toThemeData(),
             themeMode: ThemeMode.system,

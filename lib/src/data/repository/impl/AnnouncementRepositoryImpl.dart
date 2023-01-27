@@ -17,24 +17,19 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart';
-import 'package:web_socket_channel/io.dart';
 
-import '../EventsRepository.dart';
+import '../../model/EventResponse.dart';
+import '../AnnouncementRepository.dart';
+import '../../model/EventsResponse.dart';
 import '../../domain/Event.dart';
 
-class EventsRepositoryImpl implements EventsRepository {
-  final _url = Uri.parse('wss://ride2online.jadjer.by/ws');
-  final _eventsController = StreamController<Event>();
+class AnnouncementRepositoryImpl implements AnnouncementRepository {
+  final _baseUrl = 'announcement.rideonline.jadjer.by';
 
-  late final IOWebSocketChannel _channel;
+  late Client _client;
 
-  EventsRepositoryImpl() {
-    _channel = IOWebSocketChannel.connect(_url);
-
-    _channel.stream.listen((event) {
-      log(event.toString());
-      // _eventsController.add(event);
-    });
+  AnnouncementRepositoryImpl(Client client) {
+    _client = client;
   }
 
   // @override
@@ -46,29 +41,24 @@ class EventsRepositoryImpl implements EventsRepository {
   //   return EventResponse.fromJson(responseJson);
   // }
 
-  // @override
-  // Future<EventResponse> getEvent(int eventId) async {
-  //   final url = Uri.https(_baseUrl, 'events/$eventId');
-  //
-  //   final response = await _client.get(url);
-  //   final responseJson = jsonDecode(response.body);
-  //
-  //   return EventResponse.fromJson(responseJson);
-  // }
+  @override
+  Future<EventsResponse> getEvents() async {
+    final url = Uri.https(_baseUrl, 'events');
 
-  // @override
-  // Future<EventsResponse> getEvents() async {
-  //   final url = Uri.https(_baseUrl, 'events');
-  //
-  //   final response = await _client.get(url);
-  //   final responseJson = jsonDecode(response.body);
-  //
-  //   return EventsResponse.fromJson(responseJson);
-  // }
+    final response = await _client.get(url);
+    final responseJson = jsonDecode(response.body);
+
+    return EventsResponse.fromJson(responseJson);
+  }
 
   @override
-  Stream<Event> getEventStream() {
-    return _eventsController.stream;
+  Future<EventResponse> getEvent(int eventId) async {
+    final url = Uri.https(_baseUrl, 'events/$eventId');
+
+    final response = await _client.get(url);
+    final responseJson = jsonDecode(response.body);
+
+    return EventResponse.fromJson(responseJson);
   }
 
   // @override

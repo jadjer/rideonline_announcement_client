@@ -25,44 +25,65 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AuthScaffold(
       title: 'Welcome',
-      widgets: [
-        InkWell(
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
+      child: Column(
+        children: [
+          InkWell(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(143, 148, 251, 1),
-                  Color.fromRGBO(143, 148, 251, .6),
-                ])),
-            child: const Center(
-              child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromRGBO(143, 148, 251, 1),
+                    Color.fromRGBO(143, 148, 251, .6),
+                  ],
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
+            onTap: () {
+              context.goNamed(AppRouteName.login);
+            },
           ),
-          onTap: () {
-            context.goNamed(AppRouteName.login);
-          },
-        ),
-        const SizedBox(height: 30),
-        // const Spacer(),
-        InkWell(
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
+          const SizedBox(
+            height: 30,
+          ),
+          InkWell(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(colors: [
-                  Color.fromRGBO(143, 148, 251, 1),
-                  Color.fromRGBO(143, 148, 251, .6),
-                ])),
-            child: const Center(
-              child: Text("Register", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                gradient: const LinearGradient(
+                  colors: [
+                    Color.fromRGBO(143, 148, 251, 1),
+                    Color.fromRGBO(143, 148, 251, .6),
+                  ],
+                ),
+              ),
+              child: const Center(
+                child: Text(
+                  "Register",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
+            onTap: () {
+              context.goNamed(AppRouteName.registerPhone);
+            },
           ),
-          onTap: () {
-            context.goNamed(AppRouteName.registerPhone);
-          },
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

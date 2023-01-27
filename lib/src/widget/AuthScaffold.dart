@@ -16,12 +16,12 @@ import 'package:flutter/material.dart';
 
 class AuthScaffold extends StatelessWidget {
   final String title;
-  final List<Widget> widgets;
+  final Widget child;
 
   const AuthScaffold({
     super.key,
     required this.title,
-    required this.widgets,
+    required this.child,
   });
 
   @override
@@ -38,7 +38,12 @@ class AuthScaffold extends StatelessWidget {
             children: <Widget>[
               Container(
                 height: 400,
-                decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/image/background.png'), fit: BoxFit.fill)),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/image/background.png'),
+                    fit: BoxFit.fill,
+                  ),
+                ),
                 child: Stack(
                   children: <Widget>[
                     Positioned(
@@ -46,7 +51,11 @@ class AuthScaffold extends StatelessWidget {
                       width: 80,
                       height: 200,
                       child: Container(
-                        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/image/light-1.png'))),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/image/light-1.png'),
+                          ),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -54,7 +63,11 @@ class AuthScaffold extends StatelessWidget {
                       width: 80,
                       height: 150,
                       child: Container(
-                        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/image/light-2.png'))),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/image/light-2.png'),
+                          ),
+                        ),
                       ),
                     ),
                     Positioned(
@@ -63,14 +76,27 @@ class AuthScaffold extends StatelessWidget {
                       width: 80,
                       height: 150,
                       child: Container(
-                        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/image/clock.png'))),
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/image/clock.png'),
+                          ),
+                        ),
                       ),
                     ),
                     Positioned(
                       child: Container(
-                        margin: const EdgeInsets.only(top: 50),
+                        margin: const EdgeInsets.only(
+                          top: 50,
+                        ),
                         child: Center(
-                          child: Text(title, style: const TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold)),
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
                     )
@@ -79,9 +105,7 @@ class AuthScaffold extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: Column(
-                  children: widgets,
-                ),
+                child: child,
               )
             ],
           ),

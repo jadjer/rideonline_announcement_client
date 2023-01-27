@@ -31,10 +31,12 @@ class EventsResponse {
     final success = json['success'] as bool;
     final message = json['message'] as String;
 
-    if (!success) return EventsResponse(success: success, message: message, events: []);
+    if (!success)
+      return EventsResponse(success: success, message: message, events: []);
 
     final payload = json['payload'];
-    if (payload == null) return EventsResponse(success: success, message: message, events: []);
+    if (payload == null)
+      return EventsResponse(success: success, message: message, events: []);
 
     final eventsData = payload['events'] as List<dynamic>;
     final events = eventsData.map((event) => Event.fromJson(event)).toList();

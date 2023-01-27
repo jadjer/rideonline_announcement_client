@@ -12,40 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:announcement/src/widget/VehicleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../AppRouteName.dart';
-import '../../data/domain/Event.dart';
-import '../../service/AnnouncementService.dart';
-import '../../widget/EventCard.dart';
+import '../../data/domain/Vehicle.dart';
+import '../../service/VehicleService.dart';
 
-class EventsScreen extends StatefulWidget {
-  const EventsScreen({super.key});
+class VehiclesScreen extends StatefulWidget {
+  const VehiclesScreen({super.key});
 
   @override
-  State<StatefulWidget> createState() => _EventsScreenState();
+  State<StatefulWidget> createState() => _VehiclesScreenState();
 }
 
-class _EventsScreenState extends State<EventsScreen> {
+class _VehiclesScreenState extends State<VehiclesScreen> {
   final _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
-    final announcementService = context.read<AnnouncementService>();
+    final vehicleService = context.read<VehicleService>();
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Events'),
+          title: const Text('Vehicles'),
           actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.map),
-              onPressed: () {
-                context.goNamed(AppRouteName.eventsMap);
-              },
-            ),
             IconButton(
               icon: const Icon(Icons.refresh),
               onPressed: () {
@@ -63,66 +57,61 @@ class _EventsScreenState extends State<EventsScreen> {
           onRefresh: () async {
             return Future<void>.delayed(const Duration(seconds: 3));
           },
-          child: FutureBuilder<List<Event>>(
-            future: announcementService.getEvents(),
+          child: FutureBuilder<List<Vehicle>>(
+            future: vehicleService.getVehicles(),
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 final error = snapshot.error;
-                return _errorPage(error.toString());
+
+                return Center(
+                  child: Text(error.toString()),
+                );
               }
 
-              if (snapshot.hasData) {
-                final eventsData = snapshot.data!;
-                return _eventsListPage(eventsData);
+              if (!snapshot.hasData) {
+                return const Center(child: CircularProgressIndicator());
               }
 
-              return _loadingPage();
+              final vehiclesData = snapshot.data!;
+
+              if (vehiclesData.isEmpty) {
+                return const Center(
+                  child: Text('No vehicles'),
+                );
+              }
+
+              return ListView.separated(
+                padding: const EdgeInsets.all(8),
+                itemCount: vehiclesData.length,
+                itemBuilder: (context, index) {
+                  final vehicle = vehiclesData[index];
+
+                  return VehicleCard(
+                    name: vehicle.title,
+                    onTap: () {
+                      context.goNamed(
+                        AppRouteName.vehicleDetail,
+                        params: {'vehicleId': vehicle.id.toString()},
+                      );
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return const SizedBox(
+                    height: 10,
+                  );
+                },
+              );
             },
           ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            context.goNamed(AppRouteName.eventCreate);
+            context.goNamed(AppRouteName.vehicleCreate);
           },
           child: const Icon(Icons.add),
         ),
       ),
-    );
-  }
-
-  Widget _errorPage(String errorMessage) {
-    return Center(
-      child: Text(errorMessage),
-    );
-  }
-
-  Widget _loadingPage() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  Widget _eventsListPage(List<Event> events) {
-    return ListView.separated(
-      padding: const EdgeInsets.all(8),
-      itemCount: events.length,
-      itemBuilder: (context, index) {
-        final event = events[index];
-
-        return EventCard(
-          title: event.title,
-          subtitle: event.subtitle,
-          onTap: () {
-            context.goNamed(
-              AppRouteName.eventDetail,
-              params: {'eventId': event.id.toString()},
-            );
-          },
-        );
-      },
-      separatorBuilder: (context, index) {
-        return const Divider();
-      },
     );
   }
 }

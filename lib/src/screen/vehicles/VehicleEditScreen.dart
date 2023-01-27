@@ -14,28 +14,19 @@
 
 import 'package:flutter/material.dart';
 
-import '../data/domain/Event.dart';
+class VehicleEditScreen extends StatelessWidget {
+  final int vehicleId;
 
-class EventList extends StatelessWidget {
-  final List<Event> events;
-  final ValueChanged<Event> onTap;
-
-  const EventList({
-    super.key,
-    required this.events,
-    required this.onTap,
-  });
+  const VehicleEditScreen({super.key, required this.vehicleId});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: events.length,
-      itemBuilder: (context, index) => ListTile(
-        title: Text(events[index].title),
-        subtitle: Text(events[index].subtitle),
-        onTap: () {
-          return onTap(events[index]);
-        },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Edit vehicle'),
+        ),
+        body: const Text('qwe'),
       ),
     );
   }

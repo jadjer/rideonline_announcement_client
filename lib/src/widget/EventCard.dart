@@ -14,22 +14,26 @@
 
 import 'package:flutter/material.dart';
 
-import '../data/domain/Event.dart';
+class EventCard extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
 
-class EventDetails extends StatelessWidget {
-  final Event event;
-
-  const EventDetails({
+  const EventCard({
     super.key,
-    required this.event,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Text(event.text),
-      ],
+    return ListTile(
+      leading: const Icon(Icons.event, size: 60),
+      title: Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+      subtitle: Text(subtitle, style: const TextStyle(fontSize: 18)),
+      trailing: const Icon(Icons.arrow_forward_ios),
+      onTap: () => onTap(),
     );
   }
 }
